@@ -2,20 +2,31 @@ const express = require("express");
 const app = express();
 const notesRoutes = require("./routes/notesRoutes");
 const connectDB = require("./config/db");
-const dotenv = require("dotenv") 
-const PORT = process.env.PORT || 5000;
+const dotenv = require("dotenv");
+const rateLimiter = require("./middlewares/rateLimiter");
+
 dotenv.config();
-app.use(express.json())
-// console.log(process.env.MONGO_DB_URI);
 
-app.use("/api/notes",notesRoutes) 
+const PORT = process.env.PORT || 5000;
 
-connectDB();
+app.use(express.json());
 
-app.listen(PORT,()=>{
-  console.log(`server is runnig port number is ${PORT}`);
-})  
+// ✅ Apply rate limiter BEFORE routes
+app.use(rateLimiter);
 
+app.use("/api/notes", notesRoutes);
+
+connectDB()
+  .then(() => {
+    console.log("Database connected successfully");
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log("Database connection failed:", error);
+  });
 
 // app.get("/", (req, res) => {
 //   res.send("<h1>Hello World</h1>");
