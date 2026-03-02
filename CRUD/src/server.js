@@ -4,7 +4,8 @@ const notesRoutes = require("./routes/notesRoutes");
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
 const rateLimiter = require("./middlewares/rateLimiter");
-
+const cors = require("cors");
+app.use(cors());
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
