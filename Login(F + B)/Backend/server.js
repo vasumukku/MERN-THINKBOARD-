@@ -2,8 +2,10 @@ const express = require("express")
 const app= express()
 const Mongodb = require("./src/config/db")
 const User = require("./src/models/userdata")
-
 const bcrypt = require("bcrypt")
+const userRoutes = require("./src/routes/userRoutes")
+const cookieParser = require("cookie-parser");
+app.use(cookieParser()); 
 
 require("dotenv").config();
 
@@ -14,21 +16,24 @@ const PORT = process.env.PORT;
 // console.log(MONGO_DB_URI);
 
 app.use(express.json());
-
-app.post("/signin" ,async(req,res)=>{
-  const {email,password} = req.body;
- const hashedPassword = await bcrypt.hash(password, 10);
- console.log(hashedPassword) 
-  const newdata = new User({
-    email,password:hashedPassword
-  })
-  await newdata.save();
-  console.log(newdata)
-  res.json({
-    "message":newdata,
-    "status":"Data got succesfullly "
-  })
-})
+app.use("/",userRoutes) 
+// app.post("/signin" ,async(req,res)=>{
+//   const {firstName,lastName,email,password} = req.body;
+//  const hashedPassword = await bcrypt.hash(password, 10);
+//  console.log(hashedPassword) 
+//   const newdata = new User({
+//     firstName,
+//     lastName,
+//     email,
+//     password:hashedPassword
+//   })
+//   await newdata.save();
+//   console.log(newdata)
+//   res.json({
+//     "message":newdata,
+//     "status":"Data got succesfullly "
+//   })
+// })
 
 
 Mongodb().then(()=>{
