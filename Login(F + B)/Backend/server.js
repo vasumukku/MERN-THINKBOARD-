@@ -4,6 +4,9 @@ const Mongodb = require("./src/config/db")
 const User = require("./src/models/userdata")
 const bcrypt = require("bcrypt")
 const userRoutes = require("./src/routes/userRoutes")
+const cors = require("cors");
+
+app.use(cors());
 const cookieParser = require("cookie-parser");
 app.use(cookieParser()); 
 
