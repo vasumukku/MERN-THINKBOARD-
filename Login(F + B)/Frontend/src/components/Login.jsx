@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -9,32 +9,26 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const loginData = {
-      email,
-      password
-    };
-
     try {
       const res = await axios.post(
-        "http://localhost:5000/login",   
-        loginData
+        "http://localhost:5000/login",
+        { email, password }
       );
 
-      console.log(res.data);
-      alert("Login Successful");
+      localStorage.setItem("token", res.data.token);
+
+      setIsLoggedIn(true); // ✅ tell App user logged in
 
     } catch (error) {
-      console.log(error);
       alert("Login Failed");
     }
   };
 
   return (
-    <div style={{display:"flex",flexDirection:"column",alignItems:"center",height:"100vh",backgroundColor:"orange"}}>
+    <div style={{textAlign:"center", marginTop:"100px"}}>
       <h2>Login</h2>
 
       <form onSubmit={handleLogin}>
-
         <input
           type="email"
           placeholder="Enter Email"
@@ -50,7 +44,6 @@ const Login = () => {
         <br /><br />
 
         <button type="submit">Login</button>
-
       </form>
     </div>
   );

@@ -1,6 +1,6 @@
 const { Ratelimit } = require("@upstash/ratelimit");
 const { Redis } = require("@upstash/redis");
-require("dotenv").config(); // ⭐ ADD THIS LINE
+require("dotenv").config(); 
 
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),

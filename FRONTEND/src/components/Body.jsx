@@ -6,7 +6,7 @@ const Body = ({ data }) => {
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
 
-  // ✅ DELETE NOTE
+  //  DELETE NOTE
   const handleDelete = async (id) => {
     try {
       await axios.delete(`/api/notes/${id}`);
@@ -17,14 +17,14 @@ const Body = ({ data }) => {
     }
   };
 
-  // ✅ START EDIT
+  //  START EDIT
   const startEdit = (note) => {
     setEditId(note._id);
     setEditTitle(note.title);
     setEditContent(note.content);
   };
 
-  // ✅ UPDATE NOTE
+  //  UPDATE NOTE
   const handleUpdate = async () => {
     try {
       await axios.put(`/api/notes/${editId}`, {

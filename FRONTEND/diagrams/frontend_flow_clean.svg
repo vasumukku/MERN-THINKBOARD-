@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <style>
+    .box { fill:#0b243b; stroke:#1f6feb; stroke-width:2; rx:8; }
+    .text { fill:#fff; font-family:Arial, Helvetica, sans-serif; font-size:14px; }
+    .title { font-weight:700; font-size:16px; }
+    .arrow { stroke:#333; stroke-width:2; marker-end: url(#arrowhead); fill:none; }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+
+  <!-- App container -->
+  <rect x="420" y="30" width="360" height="70" class="box" />
+  <text x="600" y="60" text-anchor="middle" class="text title">App.jsx</text>
+
+  <!-- Navbar -->
+  <rect x="80" y="140" width="240" height="80" class="box" />
+  <text x="200" y="170" text-anchor="middle" class="text title">Navbar</text>
+  <text x="200" y="190" text-anchor="middle" class="text">toggles `state`</text>
+
+  <!-- Body -->
+  <rect x="420" y="140" width="320" height="120" class="box" />
+  <text x="580" y="170" text-anchor="middle" class="text title">Body.jsx (list)</text>
+  <text x="580" y="190" text-anchor="middle" class="text">renders notes, edit, delete</text>
+
+  <!-- Forms -->
+  <rect x="820" y="140" width="240" height="120" class="box" />
+  <text x="940" y="170" text-anchor="middle" class="text title">Form.jsx (create)</text>
+  <text x="940" y="190" text-anchor="middle" class="text">POST /api/notes → setstate(true)</text>
+
+  <!-- Data fetch -->
+  <rect x="420" y="300" width="360" height="80" class="box" />
+  <text x="600" y="335" text-anchor="middle" class="text title">Data fetch</text>
+  <text x="600" y="355" text-anchor="middle" class="text">GET /api/notes → setData</text>
+
+  <!-- arrows -->
+  <path d="M600 100 L600 140" class="arrow" />
+
+  <path d="M300 220 L420 220" class="arrow" />
+  <path d="M740 220 L820 220" class="arrow" />
+
+  <path d="M600 260 L600 300" class="arrow" />
+
+  <!-- Body internal actions -->
+  <rect x="420" y="420" width="320" height="120" rx="8" fill="#11202b" stroke="#3aa0ff" stroke-width="1" />
+  <text x="580" y="450" text-anchor="middle" class="text title">Body interactions</text>
+  <text x="580" y="470" text-anchor="middle" class="text">Edit → local editId/title/content</text>
+  <text x="580" y="490" text-anchor="middle" class="text">Save → PUT /api/notes/:id → reload</text>
+  <text x="580" y="510" text-anchor="middle" class="text">Delete → DELETE /api/notes/:id → reload</text>
+
+  <!-- Connections -->
+  <path d="M600 260 L580 420" class="arrow" />
+  <path d="M760 260 L740 420" class="arrow" />
+
+  <!-- Footer notes -->
+  <text x="600" y="560" text-anchor="middle" class="text">All API calls use axios (baseURL: http://localhost:5000)</text>
+  <text x="600" y="580" text-anchor="middle" class="text">`state` in App controls whether Body or Form is shown; useEffect refetches on `state` change</text>
+</svg>

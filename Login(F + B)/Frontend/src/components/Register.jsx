@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Register = ({state,setstate}) => {
+const Register = ({ setShowRegister }) => {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -9,24 +9,25 @@ const Register = ({state,setstate}) => {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault();   
-
-    const userData = {
-      firstName,
-      lastName,
-      email,
-      password
-    };
+    e.preventDefault();
 
     try {
       const res = await axios.post(
         "http://localhost:5000/register",
-        userData
+        {
+          firstName,
+          lastName,
+          email,
+          password
+        }
       );
 
       console.log(res.data);
-      // alert("Data Stored Successfully");
-      setstate(!state)
+
+      alert("Registered Successfully ✅");
+
+      // After register → go to Login
+      setShowRegister(false);
 
     } catch (error) {
       console.log(error);
@@ -35,8 +36,15 @@ const Register = ({state,setstate}) => {
   };
 
   return (
-    <div style={{display:"flex",flexDirection:"column",alignItems:"center",height:"100vh",backgroundColor:"orange"}}>
-      <h2>Simple Register</h2>
+    <div style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      height: "100vh",
+      backgroundColor: "orange"
+    }}>
+
+      <h2>Register</h2>
 
       <form onSubmit={handleSubmit}>
 
@@ -67,23 +75,24 @@ const Register = ({state,setstate}) => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br /><br />
+
         <label>
-  click here{" "}
-  <span
-    style={{
-      color: "red",
-      cursor: "pointer",
-      fontSize: "20px",
-      fontWeight: "bold"
-    }}
-    onClick={() => {
-      setstate(!state);
-    }}
-  >
-    already account
-  </span>
-</label>
-     <br /> <br />
+          Already have account?{" "}
+          <span
+            style={{
+              color: "red",
+              cursor: "pointer",
+              fontSize: "18px",
+              fontWeight: "bold"
+            }}
+            onClick={() => setShowRegister(false)}
+          >
+            Login here
+          </span>
+        </label>
+
+        <br /><br />
+
         <button type="submit">Register</button>
 
       </form>

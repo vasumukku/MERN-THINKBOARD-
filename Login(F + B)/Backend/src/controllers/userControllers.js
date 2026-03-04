@@ -76,7 +76,8 @@ const login = async (req, res) => {
     res.cookie("token", token);
 
     res.status(200).json({
-      message: `${findUser.firstName} Login successfully`
+      message: `${findUser.firstName} Login successfully`,
+      token: token
     });
 
   } catch (e) {
@@ -86,6 +87,8 @@ const login = async (req, res) => {
     });
   }
 };
+
+
 
 const logout = async (req, res) => {
   try {
